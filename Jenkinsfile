@@ -27,6 +27,7 @@ pipeline {
         sh 'cd server/goadventures/'
         sh 'cd server/goadventures/ && mvn dependency:go-offline'
         sh 'cd server/goadventures/ && mvn test'
+        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
       }
     }
   }
