@@ -12,8 +12,8 @@ pipeline {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         sh 'ls -la'
         sh 'cd client'
-        sh 'npm install'
-        sh 'npm run build'
+        sh 'cd client && npm install'
+        sh 'cd client && npm run build'
       }
     }
     stage('Clien') {
