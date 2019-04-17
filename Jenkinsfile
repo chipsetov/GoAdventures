@@ -1,14 +1,15 @@
 pipeline {
-  agent {
-    docker {
-      image 'node:8.10.0'
-    }
-
-  }
+  agent none
   stages {
     stage('Build') {
       parallel {
         stage('Build') {
+          agent {
+            docker {
+              image 'node:8.10.0'
+            }
+
+          }
           steps {
             sh 'npm install'
           }
@@ -22,6 +23,12 @@ pipeline {
       }
     }
     stage('Clien') {
+      agent {
+        docker {
+          image 'node:8.10.0'
+        }
+
+      }
       steps {
         sh 'cd client'
         sh 'cd client && npm install'
