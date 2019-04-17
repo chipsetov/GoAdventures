@@ -15,6 +15,12 @@ pipeline {
           }
         }
         stage('check') {
+          agent {
+            docker {
+              image 'node:8.10.0'
+            }
+
+          }
           steps {
             git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
             sh 'ls -la'
