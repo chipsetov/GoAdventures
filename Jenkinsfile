@@ -21,5 +21,12 @@ pipeline {
         }
       }
     }
+    stage('Clien') {
+      steps {
+        sh 'cd client'
+        sh 'npm install'
+        sh 'npm run build'
+      }
+    }
   }
 }
