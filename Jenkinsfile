@@ -16,7 +16,7 @@ pipeline {
         stage('check') {
           steps {
             sh 'ls -la'
-            git(url: '.', branch: 'develop')
+            git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
           }
         }
       }
