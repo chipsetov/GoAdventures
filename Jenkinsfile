@@ -2,33 +2,6 @@ pipeline {
   agent none
   stages {
     stage('Build') {
-      parallel {
-        stage('Build') {
-          agent {
-            docker {
-              image 'node:8.10.0'
-            }
-
-          }
-          steps {
-            sh 'npm install'
-          }
-        }
-        stage('check') {
-          agent {
-            docker {
-              image 'node:8.10.0'
-            }
-
-          }
-          steps {
-            git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-            sh 'ls -la'
-          }
-        }
-      }
-    }
-    stage('Clien') {
       agent {
         docker {
           image 'node:8.10.0'
@@ -36,9 +9,24 @@ pipeline {
 
       }
       steps {
+        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
+        sh 'ls -la'
         sh 'cd client'
-        sh 'cd client && npm install'
-        sh 'cd client && npm run build'
+        sh 'npm install'
+        sh 'npm run build'
+      }
+    }
+    stage('Clien') {
+      agent {
+        docker {
+          image 'openjdk:11-jdk'
+        }
+
+      }
+      steps {
+        sh 'cd server/goadventures/'
+        sh 'cd server/goadventures/ && mvn dependency:go-offline'
+        sh 'cd server/goadventures/ && mvn test'
       }
     }
   }
