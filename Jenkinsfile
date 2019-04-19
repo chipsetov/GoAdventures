@@ -19,7 +19,7 @@ pipeline {
     stage('API') {
       agent {
         docker {
-          image 'openjdk:11-jdk'
+          image 'maven:3.6-jdk-11'
         }
 
       }
