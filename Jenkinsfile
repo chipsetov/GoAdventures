@@ -25,10 +25,10 @@ pipeline {
       }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-        sh 'cd server/goadventures/'
-        sh 'cd server/goadventures/ && ls -la'
-        sh 'cd server/goadventures/ && mvn dependency:go-offline'
-        sh 'cd server/goadventures/ && mvn test'
+        sh 'cd server/goadventures'
+        sh 'cd server/goadventures && ls -la'
+        sh 'cd server/goadventures && mvn dependency:go-offline'
+        sh 'cd server/goadventures && mvn test'
       }
     }
   }
