@@ -28,7 +28,7 @@ pipeline {
         sh 'cd server/goadventures'
         sh 'cd server/goadventures && ls -la'
         sh 'cd server/goadventures && mvn dependency:go-offline'
-        sh 'cd server/goadventures && mvn test'
+        sh 'cd server/goadventures && mvn clean spring-boot:run'
       }
     }
   }
