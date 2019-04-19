@@ -28,6 +28,7 @@ pipeline {
         sh 'cd server/goadventures'
         sh 'cd server/goadventures && ls -la'
         sh 'cd server/goadventures && mvn dependency:go-offline'
+        sh 'cd server/goadventures && mvn clean validate'
         sh 'cd server/goadventures && mvn clean compile'
       }
     }
