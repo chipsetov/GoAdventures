@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage('Build') {
+    stage('Client') {
       agent {
         docker {
           image 'node:8.10.0'
@@ -16,7 +16,7 @@ pipeline {
         sh 'cd client && npm run build'
       }
     }
-    stage('Clien') {
+    stage('API') {
       agent {
         docker {
           image 'openjdk:11-jdk'
