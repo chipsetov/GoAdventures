@@ -35,7 +35,7 @@ pipeline {
     }
     stage('notifications') {
       steps {
-        mail(subject: 'GoAdventures', body: 'GoAdventures build')
+        mail(subject: 'GoAdventures', body: 'GoAdventures build', to: 'shakh.softgroup@gmail.com')
       }
     }
   }
