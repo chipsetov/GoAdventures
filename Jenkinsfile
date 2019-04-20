@@ -33,5 +33,10 @@ pipeline {
         sh 'cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
       }
     }
+    stage('notifications') {
+      steps {
+        mail(subject: 'GoAdventures', body: 'GoAdventures build')
+      }
+    }
   }
 }
