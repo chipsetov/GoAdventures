@@ -10,8 +10,6 @@ pipeline {
       }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-        sh 'ls -la'
-        sh 'cd client'
         sh 'cd client && npm install'
         sh 'cd client && npm run build'
       }
@@ -25,8 +23,6 @@ pipeline {
       }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-        sh 'cd server/goadventures'
-        sh 'cd server/goadventures && ls -la'
         sh 'cd server/goadventures && mvn dependency:go-offline'
         sh 'cd server/goadventures && mvn clean validate'
         sh 'cd server/goadventures && mvn clean compile'
