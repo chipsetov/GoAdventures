@@ -32,6 +32,7 @@ pipeline {
     stage('notifications') {
       steps {
         mail(subject: "${env.JOB_NAME}-${env.BUILD_NUMBER}", body: 'GoAdventures build', to: 'shakh.softgroup@gmail.com')
+        slackSend(attachments: 'CGKRE2RSR')
       }
     }
   }
