@@ -2,7 +2,12 @@ pipeline {
   agent none
   stages {
     stage('build & SonarQube analysis') {
-      agent any
+      agent {
+        docker {
+          image 'maven:3.6-jdk-11'
+        }
+
+      }
       steps {
         withSonarQubeEnv('sonarqubee') {
           sh 'mvn clean package sonar:sonar'
