@@ -1,16 +1,18 @@
 pipeline {
   agent none
   stages {
-    stage('Sonarqube') {
-      environment {
-        scannerHome = 'sonarqubee'
-      }
+    stage('build & SonarQube analysis') {
+      agent any
       steps {
-        withSonarQubeEnv('sonarqubee') {
-          sh "${scannerHome}/bin/sonar-scanner"
+        withSonarQubeEnv('sonaequbee') {
+          sh 'mvn clean package sonar:sonar'
         }
 
-        timeout(time: 10, unit: 'MINUTES') {
+      }
+    }
+    stage('Quality Gate') {
+      steps {
+        timeout(time: 1, unit: 'HOURS') {
           waitForQualityGate true
         }
 
