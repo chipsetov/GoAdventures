@@ -9,6 +9,7 @@ pipeline {
 
       }
       steps {
+        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         withSonarQubeEnv('sonarqubee') {
           sh 'cd server/goadventures && mvn clean package sonar:sonar'
         }
