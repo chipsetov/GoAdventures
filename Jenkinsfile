@@ -1,6 +1,21 @@
 pipeline {
   agent none
   stages {
+    stage('Sonarqube') {
+      environment {
+        scannerHome = 'SonarQubeScanner'
+      }
+      steps {
+        withSonarQubeEnv('sonarqube') {
+          sh "${scannerHome}/bin/sonar-scanner"
+        }
+
+        timeout(time: 10, unit: 'MINUTES') {
+          waitForQualityGate true
+        }
+
+      }
+    }
     stage('Client') {
       agent {
         docker {
@@ -27,21 +42,6 @@ pipeline {
         sh 'cd server/goadventures && mvn clean validate'
         sh 'cd server/goadventures && mvn clean compile'
         sh 'cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
-      }
-    }
-    stage('Sonarqube') {
-      environment {
-        scannerHome = 'SonarQubeScanner'
-      }
-      steps {
-        withSonarQubeEnv('sonarqube') {
-          sh "${scannerHome}/bin/sonar-scanner"
-        }
-
-        timeout(time: 10, unit: 'MINUTES') {
-          waitForQualityGate true
-        }
-
       }
     }
     stage('notifications') {
