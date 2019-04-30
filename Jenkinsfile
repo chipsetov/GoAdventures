@@ -10,7 +10,7 @@ pipeline {
       }
       steps {
         withSonarQubeEnv('sonarqubee') {
-          sh 'mvn clean package sonar:sonar'
+          sh 'cd server/goadventures && mvn clean package sonar:sonar'
         }
 
       }
