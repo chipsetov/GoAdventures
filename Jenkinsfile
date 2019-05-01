@@ -4,7 +4,7 @@ pipeline {
     stage('build & SonarQube analysis') {
       agent {
         docker {
-          image 'node:8.10.0'
+          image 'maven:3.6-jdk-11'
         }
 
       }
