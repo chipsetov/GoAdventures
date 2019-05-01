@@ -2,9 +2,10 @@ pipeline {
   agent none
   stages {
     stage('SCM') {
+      agent any
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-        withSonarQubeEnv('My SonarQube Server') {
+        withSonarQubeEnv('sonarqubee') {
           sh 'cd server/goadventures && mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
         }
 
