@@ -2,12 +2,6 @@ pipeline {
   agent none
   stages {
     stage('build & SonarQube analysis') {
-      agent {
-        docker {
-          image 'maven:3.6-jdk-11'
-        }
-
-      }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         withSonarQubeEnv('sonarqubee') {
