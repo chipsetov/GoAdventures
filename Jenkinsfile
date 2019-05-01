@@ -2,7 +2,12 @@ pipeline {
   agent none
   stages {
     stage('build & SonarQube analysis') {
-      agent any
+      agent {
+        docker {
+          image 'node:8.10.0'
+        }
+
+      }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         withSonarQubeEnv('sonarqubee') {
