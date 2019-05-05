@@ -5,7 +5,6 @@ pipeline {
       agent any
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-        slackSend(channel: '#jenkins', color: 'good', message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}")
         withSonarQubeEnv('sonarqubee') {
           sh 'cd server/goadventures && mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
         }
