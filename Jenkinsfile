@@ -9,6 +9,7 @@ pipeline {
           sh 'cd server/goadventures && mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.2:sonar'
         }
 
+        slackSend(channel: '#jenkins', color: 'good', message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}")
       }
     }
     stage('build & SonarQube analysis') {
@@ -65,7 +66,7 @@ pipeline {
     stage('notifications') {
       steps {
         mail(subject: "${env.JOB_NAME}-${env.BUILD_NUMBER}", body: 'GoAdventures build', to: 'shakh.softgroup@gmail.com')
-        slackSend(attachments: 'CGKRE2RSR')
+        slackSend(channel: '#jenkins', color: 'good', message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}")
       }
     }
   }
