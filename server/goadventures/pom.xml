@@ -16,9 +16,9 @@
 		<java.version>11</java.version>
 
             <!-- Optional URL to server. Default value is http://localhost:9000 -->
-            <sonar.host.url>
+            <!--  <sonar.host.url>
               http://sonarqube:9000
-            </sonar.host.url>
+            </sonar.host.url>-->
 
 	</properties>
 	<dependencies>
