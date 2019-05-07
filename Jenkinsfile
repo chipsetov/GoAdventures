@@ -1,13 +1,14 @@
 pipeline {
-  agent {
-    docker {
-      image 'maven:3.6-jdk-11'
-      args '--network=jenkinsnet'
-    }
-
-  }
+  agent none
   stages {
     stage('SCM') {
+      agent {
+        docker {
+          image 'maven:3.6-jdk-11'
+          args '--network=jenkinsnet'
+        }
+
+      }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         sh 'cd server/goadventures && mvn dependency:go-offline'
