@@ -1,7 +1,7 @@
 pipeline {
   agent {
     docker {
-      image 'maven:3.6-jdk-8'
+      image 'maven:3.6-jdk-11'
       args '--network=bluessssssss_sonarnet'
     }
 
