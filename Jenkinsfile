@@ -1,14 +1,16 @@
 pipeline {
-   agent { 
-     docker { image 'maven:3.6-jdk-11'
-             args "--network=sonar"
-            }
-   }
+  agent {
+    docker {
+      image 'maven:3.6-jdk-11'
+      args '--network=sonar'
+    }
+
+  }
   stages {
     stage('SCM') {
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-         sh 'cd server/goadventures && mvn dependency:go-offline'
+        sh 'cd server/goadventures && mvn dependency:go-offline'
         withSonarQubeEnv('sonarqubee') {
           sh 'cd server/goadventures && mvn sonar:sonar'
         }
