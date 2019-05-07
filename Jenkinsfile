@@ -19,6 +19,15 @@ pipeline {
 
       }
     }
+    stage('Building image') {
+      agent any
+      steps {
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
+        }
+
+      }
+    }
     stage('Client') {
       agent {
         docker {
