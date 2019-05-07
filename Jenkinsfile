@@ -65,7 +65,7 @@ pipeline {
     }
   }
   environment {
-    registry = 'docker_hub_account/repository_name'
+    registry = 'sgsh/go-ad'
     registryCredential = 'dockerhub'
   }
   post {
