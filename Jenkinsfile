@@ -22,6 +22,7 @@ pipeline {
     stage('Building image') {
       agent any
       steps {
+        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         script {
           docker.build registry + ":$BUILD_NUMBER"
         }
