@@ -9,7 +9,7 @@ pipeline {
   stages {
     stage('SCM') {
       steps {
-        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
+        checkout scm
         sh 'cd server/goadventures && mvn dependency:go-offline'
         withSonarQubeEnv('sonarqubee') {
           sh 'cd server/goadventures && mvn sonar:sonar'
