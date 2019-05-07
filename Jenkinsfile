@@ -20,6 +20,7 @@ pipeline {
       }
     }
     stage('Quality Gate') {
+      agent any
       steps {
         dir(path: 'restful-microservice') {
           script {
