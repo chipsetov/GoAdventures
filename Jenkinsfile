@@ -76,4 +76,18 @@ pipeline {
       }
     }
   }
+  post {
+    success {
+      echo 'I succeeeded!'
+      slackSend(channel: '#jenkins', color: '#00FF00', message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}")
+
+    }
+
+    failure {
+      echo 'I failed :('
+      slackSend(channel: '#jenkins', color: '#FF0000', message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}")
+
+    }
+
+  }
 }
