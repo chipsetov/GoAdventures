@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage('SCM') {
+    stage('build & SonarQube analysis') {
       agent {
         docker {
           image 'maven:3.6-jdk-11'
@@ -15,21 +15,6 @@ pipeline {
         sh 'cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
         withSonarQubeEnv('sonarqubee') {
           sh 'cd server/goadventures && mvn sonar:sonar'
-        }
-
-      }
-    }
-    stage('build & SonarQube analysis') {
-      agent {
-        docker {
-          image 'maven:3.6-jdk-11'
-        }
-
-      }
-      steps {
-        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-        withSonarQubeEnv('sonarqubee') {
-          sh 'cd server/goadventures && mvn clean package -Psonar sonar:sonar -DskipTests=true -Dsonar.host.url=http://sonarqube:9000 -X'
         }
 
       }
