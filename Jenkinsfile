@@ -20,7 +20,13 @@ pipeline {
       }
     }
     stage('Building image') {
-      agent any
+      agent {
+        docker {
+          image 'maven:3.6-jdk-11'
+          args '--network=jenkinsnet'
+        }
+
+      }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         script {
