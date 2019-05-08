@@ -2,14 +2,14 @@ kind: pipeline
 name: default
 
 steps:
-- name: frontend
-  image: node
+- name: api
+  image: openjdk:11-jdk
+  commands:
+  - mvn dependency:go-offline
+  - mvn test
+
+- name: fed
+  image: node:8.10.0
   commands:
   - npm install
   - npm test
-
-- name: backend
-  image: golang
-  commands:
-  - go build
-  - go test
