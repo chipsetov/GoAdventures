@@ -13,6 +13,6 @@ steps:
 - name: fed
   image: node
   commands:
-          #- cd client && npm run install
+  - cd client && npm run install
   - cd client && npm run build
     #- cd client && npm test
