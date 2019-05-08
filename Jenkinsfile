@@ -19,24 +19,6 @@ pipeline {
 
       }
     }
-    stage('Building image') {
-      agent {
-        docker {
-          image 'maven:3.6-jdk-11'
-          args '--network=bluessssssss_sonarnet'
-        }
-
-      }
-      steps {
-        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-        echo 'Starting to build docker image'
-        script {
-          def customImage = docker.build("my-image:${env.BUILD_ID}")
-          customImage.push()
-        }
-
-      }
-    }
     stage('Client') {
       agent {
         docker {
