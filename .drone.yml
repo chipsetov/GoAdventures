@@ -5,8 +5,9 @@ steps:
 - name: api
   image: maven:3-jdk-10
   commands:
-  - cd server/goadventures && mvn dependency:go-offline
-  - cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+          - ls -la
+          #- cd server/goadventures && mvn dependency:go-offline
+          #- cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
  
 
 - name: fed
