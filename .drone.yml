@@ -14,5 +14,5 @@ steps:
   image: node
   commands:
   - cd client && npm install
-  - cd client && npm run build
+  - npm run build
     #- cd client && npm test
