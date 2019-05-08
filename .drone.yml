@@ -5,12 +5,12 @@ steps:
 - name: api
   image: maven:3-jdk-10
   commands:
-  - mvn dependency:go-offline
-  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
-  - mvn test -B
+  - cd server/goadventures && mvn dependency:go-offline
+  - cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - cd server/goadventures && mvn test -B
 
 - name: fed
   image: node
   commands:
-  - npm install
-  - npm test
+  - cd client && npm install
+  - cd client && npm test
