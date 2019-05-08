@@ -3,13 +3,14 @@ name: default
 
 steps:
 - name: api
-  image: openjdk:11-jdk
+  image: maven:3-jdk-10
   commands:
   - mvn dependency:go-offline
-  - mvn test
+  - mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V
+  - mvn test -B
 
 - name: fed
-  image: node:8.10.0
+  image: node
   commands:
   - npm install
   - npm test
