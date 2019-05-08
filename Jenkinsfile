@@ -23,14 +23,16 @@ pipeline {
       agent {
         docker {
           image 'maven:3.6-jdk-11'
-          args '--network=jenkinsnet'
+          args '--network=bluessssssss_sonarnet'
         }
 
       }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
+        echo 'Starting to build docker image'
         script {
-          docker.build registry + ":$BUILD_NUMBER"
+          def customImage = docker.build("my-image:${env.BUILD_ID}")
+          customImage.push()
         }
 
       }
