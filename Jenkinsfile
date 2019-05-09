@@ -2,11 +2,13 @@ pipeline {
   agent none
   stages {
     stage('Cloning Git') {
+      agent any
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
       }
     }
     stage('Building image') {
+      agent any
       steps {
         script {
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
@@ -15,6 +17,7 @@ pipeline {
       }
     }
     stage('Deploy Image') {
+      agent any
       steps {
         script {
           docker.withRegistry( '', registryCredential ) {
@@ -25,6 +28,7 @@ pipeline {
       }
     }
     stage('Remove Unused docker image') {
+      agent any
       steps {
         sh "docker rmi $registry:$BUILD_NUMBER"
       }
