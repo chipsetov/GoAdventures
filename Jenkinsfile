@@ -1,6 +1,15 @@
 pipeline {
   agent none
   stages {
+    stage('make image and push to dockerhub') {
+      agent any
+      steps {
+        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
+        sh 'cd client && docker build -t sgsh/goad-app --no-cache .'
+        sh 'cd client && docker push sgsh/react-app:latest'
+        sh 'cd client && docker rmi -f react-app sgsh/react-app'
+      }
+    }
     stage('build & SonarQube analysis') {
       agent {
         docker {
