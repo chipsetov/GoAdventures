@@ -1,6 +1,34 @@
 pipeline {
   agent none
   stages {
+    stage('Cloning Git') {
+      steps {
+        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
+      }
+    }
+    stage('Building image') {
+      steps {
+        script {
+          dockerImage = docker.build registry + ":$BUILD_NUMBER"
+        }
+
+      }
+    }
+    stage('Deploy Image') {
+      steps {
+        script {
+          docker.withRegistry( '', registryCredential ) {
+            dockerImage.push()
+          }
+        }
+
+      }
+    }
+    stage('Remove Unused docker image') {
+      steps {
+        sh "docker rmi $registry:$BUILD_NUMBER"
+      }
+    }
     stage('make image and push to dockerhub') {
       agent any
       steps {
