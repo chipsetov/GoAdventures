@@ -11,6 +11,7 @@ pipeline {
       agent any
       steps {
         script {
+          sh 'cd client'
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
 
