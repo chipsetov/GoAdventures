@@ -6,6 +6,10 @@ pipeline {
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         sh 'cd client && docker build -t sgsh/goad-app --no-cache .'
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
+        }
+
         sh 'cd client && docker push sgsh/react-app:latest'
         sh 'cd client && docker rmi -f react-app sgsh/react-app'
       }
@@ -54,15 +58,11 @@ pipeline {
         sh 'cd server/goadventures && mvn dependency:go-offline'
         sh 'cd server/goadventures && mvn clean validate'
         sh 'cd server/goadventures && mvn clean compile'
-        script {
-          docker.build registry + ":$BUILD_NUMBER"
-        }
-
       }
     }
   }
   environment {
-    registry = 'sgsh/go-ad'
+    registry = 'sgsh/goad-app'
     registryCredential = 'docker-hub'
     dockerfilemavenversion = '1'
   }
