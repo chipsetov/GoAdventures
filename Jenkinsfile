@@ -54,13 +54,16 @@ pipeline {
         sh 'cd server/goadventures && mvn dependency:go-offline'
         sh 'cd server/goadventures && mvn clean validate'
         sh 'cd server/goadventures && mvn clean compile'
-        sh 'cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
+        script {
+          docker.build registry + ":$BUILD_NUMBER"
+        }
+
       }
     }
   }
   environment {
     registry = 'sgsh/go-ad'
-    registryCredential = 'dockerhub'
+    registryCredential = 'docker-hub'
     dockerfilemavenversion = '1'
   }
   post {
