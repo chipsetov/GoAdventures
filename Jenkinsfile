@@ -5,33 +5,20 @@ pipeline {
       agent any
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-      }
-    }
-    stage('Building image') {
-      agent any
-      steps {
         script {
           sh 'cd client'
           dockerImage = docker.build registry + ":$BUILD_NUMBER"
         }
 
-      }
-    }
-    stage('Deploy Image') {
-      agent any
-      steps {
         script {
           docker.withRegistry( '', registryCredential ) {
             dockerImage.push()
           }
+          steps {
+            sh "docker rmi $registry:$BUILD_NUMBER"
+          }
         }
 
-      }
-    }
-    stage('Remove Unused docker image') {
-      agent any
-      steps {
-        sh "docker rmi $registry:$BUILD_NUMBER"
       }
     }
     stage('make image and push to dockerhub') {
