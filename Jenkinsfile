@@ -14,9 +14,7 @@ pipeline {
             docker.withRegistry( '', registryCredential ) {
               dockerImage.push()
             }
-            steps {
-              sh "docker rmi $registry:$BUILD_NUMBER"
-            }
+            sh "docker rmi $registry:$BUILD_NUMBER"
           }
 
         }
