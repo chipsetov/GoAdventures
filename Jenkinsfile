@@ -6,7 +6,7 @@ pipeline {
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         script {
-          dir ('cd client') {
+          dir ('client') {
             dockerImage = docker.build registry + ":$BUILD_NUMBER" }
           }
 
