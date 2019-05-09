@@ -7,7 +7,7 @@ pipeline {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         sh 'cd client && docker build -t sgsh/goad-app --no-cache .'
         script {
-          cd client && docker.build registry + ":$BUILD_NUMBER"
+          docker.build registry + ":$BUILD_NUMBER"
         }
 
         sh 'cd client && docker push sgsh/react-app:latest'
