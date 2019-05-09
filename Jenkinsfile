@@ -51,6 +51,7 @@ pipeline {
   environment {
     registry = 'sgsh/go-ad'
     registryCredential = 'dockerhub'
+    dockerfilemavenversion = '1'
   }
   post {
     success {
