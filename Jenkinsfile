@@ -20,24 +20,6 @@ pipeline {
 
       }
     }
-    stage('SonarQube Quality Gate') {
-      post {
-        always {
-          publishSQResults(SQHostURL: "${SQ_HOSTNAME}", SQAuthToken: "${SQ_AUTHENTICATION_TOKEN}", SQProjectKey: "${SQ_PROJECT_KEY}")
-
-        }
-
-      }
-      steps {
-        script {
-          def qualitygate = waitForQualityGate()
-          if (qualitygate.status != "OK") {
-            error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
-          }
-        }
-
-      }
-    }
     stage('make client image and push to dockerhub') {
       agent any
       steps {
