@@ -56,33 +56,6 @@ pipeline {
 
           }
         }
-        stage('Client') {
-          agent {
-            docker {
-              image 'node:8.10.0'
-            }
-
-          }
-          steps {
-            git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-            sh 'cd client && npm install'
-            sh 'cd client && npm run build'
-          }
-        }
-        stage('API') {
-          agent {
-            docker {
-              image 'maven:3.6-jdk-11'
-            }
-
-          }
-          steps {
-            git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-            sh 'cd server/goadventures && mvn dependency:go-offline'
-            sh 'cd server/goadventures && mvn clean validate'
-            sh 'cd server/goadventures && mvn clean compile'
-          }
-        }
       }
       environment {
         registry = 'sgsh/goad-app'
