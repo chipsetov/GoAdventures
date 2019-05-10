@@ -20,10 +20,20 @@ pipeline {
 
       }
     }
-    stage('Quality Gate') {
+    stage('SonarQube Quality Gate') {
+      post {
+        always {
+          publishSQResults(SQHostURL: "${SQ_HOSTNAME}", SQAuthToken: "${SQ_AUTHENTICATION_TOKEN}", SQProjectKey: "${SQ_PROJECT_KEY}")
+
+        }
+
+      }
       steps {
-        timeout(time: 1, unit: 'HOURS') {
-          waitForQualityGate true
+        script {
+          def qualitygate = waitForQualityGate()
+          if (qualitygate.status != "OK") {
+            error "Pipeline aborted due to quality gate coverage failure: ${qualitygate.status}"
+          }
         }
 
       }
