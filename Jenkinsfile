@@ -1,6 +1,33 @@
 pipeline {
   agent none
   stages {
+    stage('build & SonarQube analysis') {
+      agent {
+        docker {
+          image 'maven:3.6-jdk-11'
+          args '--network=jenkinsnet -v /var/run/docker.sock:/var/run/docker.sock'
+        }
+
+      }
+      steps {
+        git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
+        sh 'cd server/goadventures && mvn package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
+        sh 'cd server/goadventures && mvn dependency:go-offline'
+        sh 'cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
+        withSonarQubeEnv('sonarqubee') {
+          sh 'cd server/goadventures && mvn sonar:sonar'
+        }
+
+      }
+    }
+    stage('Quality Gate') {
+      steps {
+        timeout(time: 1, unit: 'HOURS') {
+          waitForQualityGate true
+        }
+
+      }
+    }
     stage('make client image and push to dockerhub') {
       agent any
       steps {
@@ -33,25 +60,6 @@ pipeline {
                 dockerImage.push()
               }
               sh "docker rmi $registryapi:$BUILD_NUMBER"
-            }
-
-          }
-        }
-        stage('build & SonarQube analysis') {
-          agent {
-            docker {
-              image 'maven:3.6-jdk-11'
-              args '--network=jenkinsnet -v /var/run/docker.sock:/var/run/docker.sock'
-            }
-
-          }
-          steps {
-            git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-            sh 'cd server/goadventures && mvn package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
-            sh 'cd server/goadventures && mvn dependency:go-offline'
-            sh 'cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
-            withSonarQubeEnv('sonarqubee') {
-              sh 'cd server/goadventures && mvn sonar:sonar'
             }
 
           }
