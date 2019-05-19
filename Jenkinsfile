@@ -14,7 +14,7 @@ pipeline {
         sh 'cd server/goadventures && mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
         sh 'cd server/goadventures && mvn clean dependency:go-offline'
         sh 'cd server/goadventures && mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
-        withSonarQubeEnv(installationName: 'sonarqubee') {
+        withSonarQubeEnv('sonarqubee') {
           sh 'cd server/goadventures && mvn sonar:sonar'
         }
 
