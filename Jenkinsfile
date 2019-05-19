@@ -11,9 +11,9 @@ pipeline {
       }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
-        sh 'cd server/goadventures && mvn package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
-        sh 'cd server/goadventures && mvn dependency:go-offline'
-        sh 'cd server/goadventures && mvn install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
+        sh 'cd server/goadventures && mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
+        sh 'cd server/goadventures && mvn clean dependency:go-offline'
+        sh 'cd server/goadventures && mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
         withSonarQubeEnv(installationName: 'sonarqubee') {
           sh 'cd server/goadventures && mvn sonar:sonar'
         }
