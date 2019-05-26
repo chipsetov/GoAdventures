@@ -1,6 +1,17 @@
 pipeline {
   agent none
   stages {
+    stage('ddddd') {
+      agent any
+      steps {
+        script {
+          echo "Testing the ${browsers[i]} browser"
+          echo "Testing the ${browsers[i]} browser"
+          ls -la
+        }
+
+      }
+    }
     stage('build & SonarQube analysis') {
       agent {
         docker {
@@ -10,12 +21,6 @@ pipeline {
 
       }
       steps {
-        script {
-          echo "Testing the ${browsers[i]} browser"
-          echo "Testing the ${browsers[i]} browser"
-          ls -la
-        }
-
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         sh 'cd server/goadventures && mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
         sh 'cd server/goadventures && mvn clean dependency:go-offline'
