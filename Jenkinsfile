@@ -8,7 +8,7 @@ pipeline {
           echo "Testing the browser"
           echo "Testing the browser"
           File file = new File("out.txt")
-          file.write $buildserver
+          file.write build.getBuildVariables().get('buildserver')
           if (file.text == "First line") {echo "ssssssssssssssss"}
           println file.text
         }
