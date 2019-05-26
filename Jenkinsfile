@@ -5,8 +5,8 @@ pipeline {
       agent any
       steps {
         script {
-          echo "Testing the ${browsers[i]} browser"
-          echo "Testing the ${browsers[i]} browser"
+          echo "Testing the browser"
+          echo "Testing the browser"
           ls -la
         }
 
