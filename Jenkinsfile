@@ -5,10 +5,12 @@ pipeline {
       agent any
       steps {
         script {
+          def envVars = Jenkins.instance.getGlobalNodeProperties()[0].getEnvVars()
+          println envVars['buildserver']
           echo "Testing the browser"
           echo "Testing the browser"
           File file = new File("out.txt")
-          file.write build.getBuildVariables().get('buildserver')
+          file.write envVars['buildserver']
           if (file.text == "First line") {echo "ssssssssssssssss"}
           println file.text
         }
