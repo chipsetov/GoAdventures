@@ -4,6 +4,7 @@ pipeline {
     stage('ddddd') {
       agent any
       steps {
+        echo "${RELEASE}"
         script {
           def envVars = Jenkins.instance.getGlobalNodeProperties()[0].getEnvVars()
           println envVars['buildserver']
