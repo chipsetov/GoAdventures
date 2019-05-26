@@ -8,7 +8,7 @@ pipeline {
           echo "Testing the browser"
           echo "Testing the browser"
           File file = new File("out.txt")
-          file.write "First line\n"
+          file.write $buildserver
           if (file.text == "First line") {echo "ssssssssssssssss"}
           println file.text
         }
@@ -78,6 +78,7 @@ pipeline {
         }
       }
       environment {
+        buildserver = 'blue'
         registry = 'sgsh/goad-app'
         registryapi = 'sgsh/goad-api'
         registryCredential = 'docker-hub'
