@@ -6,6 +6,8 @@ pipeline {
       steps {
         echo "${RELEASE}"
         script {
+          String jobRoot = ((WorkflowRun) script.manager.build).parent.rootDir.toString()
+          println jobRoot
           def envVars = Jenkins.instance.getGlobalNodeProperties()[0].getEnvVars()
           println envVars['buildserver']
           echo "Testing the browser"
