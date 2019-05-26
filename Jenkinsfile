@@ -9,7 +9,7 @@ pipeline {
           echo "Testing the browser"
           File file = new File("out.txt")
           file.write "First line\n"
-          if (file.text != "First line") {echo "ssssssssssssssss"}
+          if (file.text == "First line") {echo "ssssssssssssssss"}
           println file.text
         }
 
