@@ -8,7 +8,6 @@ pipeline {
           echo "Testing the browser"
           echo "Testing the browser"
           File file = new File("out.txt")
-          file.write envVars['buildserver']
           if (file.text == "First line") {echo "ssssssssssssssss"}
           println file.text
           "ls -l".execute().text
