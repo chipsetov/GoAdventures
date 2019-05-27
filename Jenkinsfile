@@ -6,6 +6,7 @@ pipeline {
         label 'master'
       }
       steps {
+        echo "whoami".execute().text
         writeFile(file: 'props.txt', text: 'foo=bar')
         script {
           def props = readProperties file:'props.txt';
