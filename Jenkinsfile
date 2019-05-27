@@ -2,7 +2,9 @@ pipeline {
   agent none
   stages {
     stage('A') {
-      agent any
+      agent {
+        label 'master'
+      }
       steps {
         writeFile(file: 'props.txt', text: 'foo=bar')
         script {
@@ -13,7 +15,9 @@ pipeline {
       }
     }
     stage('B') {
-      agent any
+      agent {
+        label 'master'
+      }
       steps {
         echo env.foo
       }
