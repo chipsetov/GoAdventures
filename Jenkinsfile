@@ -2,6 +2,7 @@ pipeline {
   agent none
   stages {
     stage('A') {
+      agent any
       steps {
         writeFile(file: 'props.txt', text: 'foo=bar')
         script {
@@ -12,6 +13,7 @@ pipeline {
       }
     }
     stage('B') {
+      agent any
       steps {
         echo env.foo
       }
