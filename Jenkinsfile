@@ -4,18 +4,14 @@ pipeline {
     stage('ddddd') {
       agent any
       steps {
-        echo "${RELEASE}"
         script {
-          String jobRoot = ((WorkflowRun) script.manager.build).parent.rootDir.toString()
-          println jobRoot
-          def envVars = Jenkins.instance.getGlobalNodeProperties()[0].getEnvVars()
-          println envVars['buildserver']
           echo "Testing the browser"
           echo "Testing the browser"
           File file = new File("out.txt")
           file.write envVars['buildserver']
           if (file.text == "First line") {echo "ssssssssssssssss"}
           println file.text
+          "ls -l".execute().text
         }
 
       }
