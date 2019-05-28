@@ -3,7 +3,10 @@ pipeline {
   stages {
     stage('A') {
       agent {
-        label 'master'
+        docker {
+          image 'ubuntu'
+        }
+
       }
       steps {
         script {
