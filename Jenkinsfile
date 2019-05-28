@@ -6,6 +6,11 @@ pipeline {
         label 'master'
       }
       steps {
+        script {
+          def ret = sh(script: 'uname', returnStdout: true)
+          println ret
+        }
+
         echo "whoami".execute().text
         writeFile(file: 'props.txt', text: 'foo=bar')
         script {
