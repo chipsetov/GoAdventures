@@ -7,7 +7,7 @@ pipeline {
       }
       steps {
         script {
-          def ret = sh(script: 'uname', returnStdout: true)
+          def ret = sh(script: 'ls -la', returnStdout: true)
           println ret
         }
 
