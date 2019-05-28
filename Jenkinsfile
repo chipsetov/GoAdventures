@@ -7,7 +7,7 @@ pipeline {
       }
       steps {
         script {
-          def ret = sh(script: 'dig +short www.softserveinc.com', returnStdout: true)
+          def ret = sh(script: 'host -t a www.softserveinc.com', returnStdout: true)
           println ret
         }
 
