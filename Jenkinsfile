@@ -7,7 +7,7 @@ pipeline {
       }
       steps {
         script {
-          browser = sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no diff /etc/bind/db.goadventures.com /etc/bind/db.goadventures.com-blue')
+          browser = sh(returnStdout: true, script: 'ssh shakh_anton@10.156.0.9 -oStrictHostKeyChecking=no diff /etc/bind/db.goadventures.com /etc/bind/db.goadventures.com-blue')
         }
 
         echo "${browser}"
