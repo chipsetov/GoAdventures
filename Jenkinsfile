@@ -1,6 +1,12 @@
 pipeline {
   agent none
   stages {
+    stage('test') {
+      agent any
+      steps {
+        sh 'ssh 35.246.179.4 uname -a'
+      }
+    }
     stage('A') {
       agent {
         docker {
