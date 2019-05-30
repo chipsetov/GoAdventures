@@ -11,11 +11,11 @@ pipeline {
         }
 
         script {
-          if (browser != '') {
-            echo "more then zero"
+          if (browser == '') {
+            echo " zero"
           }
           else {
-            echo "zero"
+            echo "more then zero"
           }
         }
 
