@@ -17,10 +17,10 @@ pipeline {
           boolean containsData = browser?.trim()
 
           if (browser == '') {
-            echo "same"
+            echo "same-----------------------"
           }
           else {
-            echo "not the same"
+            echo "not the same------------"
           }
         }
 
