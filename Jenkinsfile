@@ -2,7 +2,9 @@ pipeline {
   agent none
   stages {
     stage('test') {
-      agent any
+      agent {
+        label 'master'
+      }
       steps {
         script {
           browser = sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no diff /etc/bind/db.goadventures.com /etc/bind/db.goadventures.com-blue')
