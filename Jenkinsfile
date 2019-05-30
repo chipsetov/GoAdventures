@@ -5,7 +5,7 @@ pipeline {
       agent any
       steps {
         script {
-          browser = sh(returnStdout: true, script: 'ssh 35.246.214.201 -oStrictHostKeyChecking=no diff /etc/bind/db.goadventures.com /etc/bind/db.goadventures.com-blue')
+          browser = sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no diff /etc/bind/db.goadventures.com /etc/bind/db.goadventures.com-blue')
         }
 
         echo "${browser}"
