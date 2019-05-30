@@ -9,6 +9,10 @@ pipeline {
         }
 
         echo "${browser}"
+        echo "${browser}"
+        echo "${browser}"
+        echo "${browser}"
+        echo "${browser}"
       }
     }
     stage('A') {
