@@ -13,6 +13,12 @@ pipeline {
         echo "${browser}"
         echo "${browser}"
         echo "${browser}"
+        script {
+          if (${browser} > 0) {
+            echo "more then zero"
+          }
+        }
+
       }
     }
     stage('A') {
