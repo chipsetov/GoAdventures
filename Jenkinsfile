@@ -18,12 +18,13 @@ pipeline {
             echo "same"
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "rm /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "cp /etc/bind/db.goadventures.com-green /etc/bind/db.goadventures.com; true"')
-
+            sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "sudo /etc/init.d/bind9 restart; true"')
           }
           else {
             echo "not the same"
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "rm /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "cp /etc/bind/db.goadventures.com-blue /etc/bind/db.goadventures.com; true"')
+            sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "sudo /etc/init.d/bind9 restart; true"')
 
           }
         }
