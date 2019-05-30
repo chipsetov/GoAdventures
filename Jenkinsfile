@@ -11,11 +11,8 @@ pipeline {
         }
 
         script {
-          if (browser != '') {
-            echo " zero"
-          }
-          else {
-            echo "more then zero"
+          if (browser?.trim()) {
+            echo "ssss"
           }
         }
 
