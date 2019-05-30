@@ -11,7 +11,7 @@ pipeline {
         }
 
         script {
-          if (browser == '') {
+          if (browser != '') {
             echo " zero"
           }
           else {
