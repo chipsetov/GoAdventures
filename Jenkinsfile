@@ -11,6 +11,7 @@ pipeline {
         }
 
         script {
+          echo ${browser}
           boolean containsData = browser?.trim()
         }
 
