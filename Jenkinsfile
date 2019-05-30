@@ -19,6 +19,12 @@ pipeline {
           }
         }
 
+        script {
+          if (browser == '') {
+            echo "zero"
+          }
+        }
+
       }
     }
     stage('A') {
