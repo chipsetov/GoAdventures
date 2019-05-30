@@ -14,10 +14,7 @@ pipeline {
           if (browser != '') {
             echo "more then zero"
           }
-        }
-
-        script {
-          if (browser == '') {
+          else {
             echo "zero"
           }
         }
