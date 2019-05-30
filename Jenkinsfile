@@ -19,13 +19,14 @@ pipeline {
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "rm /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "cp /etc/bind/db.goadventures.com-green /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "sudo /etc/init.d/bind9 restart; true"')
+            env.DEPLOYSERVER = '10.156.0.11'
           }
           else {
             echo "not the same"
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "rm /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "cp /etc/bind/db.goadventures.com-blue /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "sudo /etc/init.d/bind9 restart; true"')
-
+            env.DEPLOYSERVER = '10.156.0.12'
           }
         }
 
@@ -39,6 +40,7 @@ pipeline {
 
       }
       steps {
+        echo "${env.DEPLOYSERVER}"
         script {
           def ret = sh(script: 'dig +short www.softserveinc.com', returnStdout: true)
           println ret
