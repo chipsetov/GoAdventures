@@ -15,6 +15,13 @@ pipeline {
           echo browser
           echo browser
           boolean containsData = browser?.trim()
+
+          if (browser == '') {
+            echo "same"
+          }
+          else {
+            echo "not the same"
+          }
         }
 
       }
