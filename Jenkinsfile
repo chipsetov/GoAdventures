@@ -32,51 +32,6 @@ pipeline {
 
       }
     }
-    stage('A') {
-      agent {
-        docker {
-          image 'ubuntu'
-        }
-
-      }
-      steps {
-        echo "${env.DEPLOYSERVER}"
-        script {
-          def ret = sh(script: 'dig +short www.softserveinc.com', returnStdout: true)
-          println ret
-        }
-
-        echo "whoami".execute().text
-        writeFile(file: 'props.txt', text: 'foo=bar')
-        script {
-          def props = readProperties file:'props.txt';
-          env['foo'] = props['foo']
-        }
-
-      }
-    }
-    stage('B') {
-      agent {
-        label 'master'
-      }
-      steps {
-        echo env.foo
-      }
-    }
-    stage('ddddd') {
-      agent any
-      steps {
-        script {
-          echo "Testing the browser"
-          echo "Testing the browser"
-          File file = new File("out.txt")
-          if (file.text == "First line") {echo "ssssssssssssssss"}
-          println file.text
-          "ls -l".execute().text
-        }
-
-      }
-    }
     stage('build & SonarQube analysis') {
       agent {
         docker {
