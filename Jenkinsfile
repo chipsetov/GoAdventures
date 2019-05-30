@@ -14,7 +14,7 @@ pipeline {
         echo "${browser}"
         echo "${browser}"
         script {
-          if (${browser} > 0) {
+          if (browser > 0) {
             echo "more then zero"
           }
         }
