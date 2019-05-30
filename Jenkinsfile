@@ -4,7 +4,11 @@ pipeline {
     stage('test') {
       agent any
       steps {
-        sh 'ssh 35.246.179.4 -oStrictHostKeyChecking=no $h uptime'
+        script {
+          browser = sh(returnStdout: true, script: 'ssh 35.246.179.4 -oStrictHostKeyChecking=no uptime')
+        }
+
+        echo "${browser}"
       }
     }
     stage('A') {
