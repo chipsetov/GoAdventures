@@ -4,7 +4,7 @@ pipeline {
     stage('test') {
       agent any
       steps {
-        sh 'ssh 35.246.179.4 uname -a'
+        sh 'ssh 35.246.179.4 -oStrictHostKeyChecking=no $h uptime'
       }
     }
     stage('A') {
