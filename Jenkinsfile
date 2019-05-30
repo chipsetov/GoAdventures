@@ -11,9 +11,7 @@ pipeline {
         }
 
         script {
-          if (browser?.trim()) {
-            echo "ssss"
-          }
+          boolean containsData = browser?.trim()
         }
 
       }
