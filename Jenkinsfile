@@ -41,6 +41,7 @@ pipeline {
 
       }
       steps {
+        echo env.DEPLOYSERVER
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
         sh 'cd server/goadventures && mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
         sh 'cd server/goadventures && mvn clean dependency:go-offline'
