@@ -7,4 +7,3 @@ COPY . /app/
 RUN npm rebuild node-sass
 CMD [ "npm", "run", "start:dev"]
 EXPOSE 3001
-
