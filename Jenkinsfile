@@ -30,7 +30,7 @@ pipeline {
           }
         }
 
-        sh(returnStdout: true, script: 'ssh ${env.DEPLOYSERVER} -oStrictHostKeyChecking=no "uname -a; true"')
+        sh "ssh ${env.DEPLOYSERVER} -oStrictHostKeyChecking=no uname -a"
       }
     }
     stage('build & SonarQube analysis') {
