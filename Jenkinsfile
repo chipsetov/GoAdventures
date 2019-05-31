@@ -30,6 +30,7 @@ pipeline {
           }
         }
 
+        sh "ssh ${env.DEPLOYSERVER} uname -a"
       }
     }
     stage('build & SonarQube analysis') {
