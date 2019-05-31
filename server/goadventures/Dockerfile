@@ -4,3 +4,5 @@ WORKDIR /app
 COPY ./pom.xml ./pom.xml
 RUN mvn dependency:go-offline -B
 COPY . /app
+CMD [ "mvn", "clean", "spring-boot:run"]
+EXPOSE 8080
