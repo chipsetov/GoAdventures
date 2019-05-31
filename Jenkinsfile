@@ -19,14 +19,14 @@ pipeline {
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "rm /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "cp /etc/bind/db.goadventures.com-green /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "sudo /etc/init.d/bind9 restart; true"')
-            env.DEPLOYSERVER = '10.156.0.11'
+            env.DEPLOYSERVER = '10.156.0.8'
           }
           else {
             echo "not the same"
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "rm /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "cp /etc/bind/db.goadventures.com-blue /etc/bind/db.goadventures.com; true"')
             sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "sudo /etc/init.d/bind9 restart; true"')
-            env.DEPLOYSERVER = '10.156.0.12'
+            env.DEPLOYSERVER = '10.156.0.5'
           }
         }
 
