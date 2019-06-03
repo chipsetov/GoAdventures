@@ -44,6 +44,7 @@ pipeline {
       }
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
+        sh 'cd server/goadventures/src/main/resources && sed -i \'s/db:5432/10.156.0.14:5432/g\' application.properties'
         sh 'cd server/goadventures && mvn clean package -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
         sh 'cd server/goadventures && mvn clean dependency:go-offline'
         sh 'cd server/goadventures && mvn clean install -DskipTests=true -Dmaven.javadoc.skip=true -B -V'
