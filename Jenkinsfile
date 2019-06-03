@@ -100,12 +100,8 @@ pipeline {
         stage('Deploy') {
           agent any
           steps {
-            sh '''#!/bin/bash
-                 ssh 10.156.0.8 docker rm $(docker ps -aq)
-         '''
-            sh '''#!/bin/bash
-                 ssh 10.156.0.5 docker rm $(docker ps -aq)
-         '''
+            sh(returnStdout: true, script: 'ssh 10.156.0.8 -oStrictHostKeyChecking=no "docker rm $(docker ps -aq); true"')
+            sh(returnStdout: true, script: 'ssh 10.156.0.5 -oStrictHostKeyChecking=no "docker rm $(docker ps -aq); true"')
             sh "ssh ${env.DEPLOYSERVER} docker run -p 8080:8080 -d $registryapi:$BUILD_NUMBER"
             sh "ssh ${env.DEPLOYSERVER} docker run -p 3000:3000 -d $registry:$BUILD_NUMBER"
           }
