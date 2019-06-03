@@ -7,11 +7,6 @@ pipeline {
       }
       steps {
         script {
-          env.DEPLOYSERVER = '10.156.0.8'
-        }
-
-        sh 'ssh ${env.DEPLOYSERVER} docker rm -f $(docker ps -aq)'
-        script {
           browser = sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "diff /etc/bind/db.goadventures.com /etc/bind/db.goadventures.com-blue; true"')
         }
 
@@ -105,7 +100,8 @@ pipeline {
         stage('Deploy') {
           agent any
           steps {
-            sh(returnStdout: true, script: 'ssh ${env.DEPLOYSERVER} -oStrictHostKeyChecking=no "docker rm -f $(docker ps -aq); true"')
+            sh "ssh ${env.DEPLOYSERVER} docker rm $registryapi:$BUILD_NUMBER-1"
+            sh "ssh ${env.DEPLOYSERVER} docker rm $registry:$BUILD_NUMBER-1"
             sh "ssh ${env.DEPLOYSERVER} docker run -p 8080:8080 -d $registryapi:$BUILD_NUMBER"
             sh "ssh ${env.DEPLOYSERVER} docker run -p 3000:3000 -d $registry:$BUILD_NUMBER"
           }
