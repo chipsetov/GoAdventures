@@ -101,7 +101,7 @@ pipeline {
           agent any
           steps {
             sh '''#!/bin/bash
-                 ssh ${env.DEPLOYSERVER} docker rm $(docker ps -aq)
+                 ssh $env.DEPLOYSERVER docker rm $(docker ps -aq)
          '''
             sh "ssh ${env.DEPLOYSERVER} docker run -p 8080:8080 -d $registryapi:$BUILD_NUMBER"
             sh "ssh ${env.DEPLOYSERVER} docker run -p 3000:3000 -d $registry:$BUILD_NUMBER"
