@@ -10,7 +10,7 @@ pipeline {
           env.DEPLOYSERVER = '10.156.0.8'
         }
 
-        sh(returnStdout: true, script: 'ssh ${env.DEPLOYSERVER} "docker rm -f $(docker ps -aq); true"')
+        sh 'ssh ${env.DEPLOYSERVER} docker rm -f $(docker ps -aq)'
         script {
           browser = sh(returnStdout: true, script: 'ssh 10.156.0.9 -oStrictHostKeyChecking=no "diff /etc/bind/db.goadventures.com /etc/bind/db.goadventures.com-blue; true"')
         }
