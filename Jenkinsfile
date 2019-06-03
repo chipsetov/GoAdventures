@@ -1,7 +1,7 @@
 pipeline {
   agent none
   stages {
-    stage('test') {
+    stage('DNS check') {
       agent {
         label 'master'
       }
@@ -31,9 +31,10 @@ pipeline {
         }
 
         sh "ssh ${env.DEPLOYSERVER} -oStrictHostKeyChecking=no uname -a"
+        echo env.DEPLOYSERVER
       }
     }
-    stage('build & SonarQube analysis') {
+    stage('Build & SonarQube analysis') {
       agent {
         docker {
           image 'maven:3.6-jdk-11'
@@ -60,7 +61,7 @@ pipeline {
 
       }
     }
-    stage('make client image and push to dockerhub') {
+    stage('Make client image and push to dockerhub') {
       agent any
       steps {
         git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
@@ -78,7 +79,7 @@ pipeline {
 
         }
       }
-      stage('make API image and push to dockerhub') {
+      stage('Make API image and push to dockerhub') {
         agent any
         steps {
           git(url: 'https://github.com/chipsetov/GoAdventures', branch: 'develop')
@@ -99,7 +100,8 @@ pipeline {
         stage('Deploy') {
           agent any
           steps {
-            sh "ssh ${env.DEPLOYSERVER} docker run -p 3000:3000 -d $registryapi:$BUILD_NUMBER"
+            sh "ssh ${env.DEPLOYSERVER} docker rm -f \$(docker ps -aq)"
+            sh "ssh ${env.DEPLOYSERVER} docker run -p 8080:8080 -d $registryapi:$BUILD_NUMBER"
             sh "ssh ${env.DEPLOYSERVER} docker run -p 3000:3000 -d $registry:$BUILD_NUMBER"
           }
         }
