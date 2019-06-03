@@ -99,7 +99,8 @@ pipeline {
         stage('Deploy') {
           agent any
           steps {
-            sh "ssh ${env.DEPLOYSERVER} docker run -p 3000:3000 $registryapi:$BUILD_NUMBER -d"
+            sh "ssh ${env.DEPLOYSERVER} docker run -p 3000:3000 -d $registryapi:$BUILD_NUMBER"
+            sh "ssh ${env.DEPLOYSERVER} docker run -p 3000:3000 -d $registry:$BUILD_NUMBER"
           }
         }
       }
